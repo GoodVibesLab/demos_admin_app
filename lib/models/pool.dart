@@ -11,6 +11,12 @@ class Pool with _$Pool {
     required String question,
     required bool isPrivate,
     required List<String> choices,
+    DateTime? endTime,
+    required DateTime createdAt,
+    required String creatorId,
+    @Default(0) int totalVotes,
+    @Default(true) bool isActive,
+    List<String>? tags,
   }) = _Pool;
 
   factory Pool.fromJson(Map<String, Object?> json) =>

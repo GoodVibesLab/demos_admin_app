@@ -24,6 +24,12 @@ mixin _$Pool {
   String get question => throw _privateConstructorUsedError;
   bool get isPrivate => throw _privateConstructorUsedError;
   List<String> get choices => throw _privateConstructorUsedError;
+  DateTime? get endTime => throw _privateConstructorUsedError;
+  DateTime get createdAt => throw _privateConstructorUsedError;
+  String get creatorId => throw _privateConstructorUsedError;
+  int get totalVotes => throw _privateConstructorUsedError;
+  bool get isActive => throw _privateConstructorUsedError;
+  List<String>? get tags => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -35,7 +41,17 @@ abstract class $PoolCopyWith<$Res> {
   factory $PoolCopyWith(Pool value, $Res Function(Pool) then) =
       _$PoolCopyWithImpl<$Res, Pool>;
   @useResult
-  $Res call({String id, String question, bool isPrivate, List<String> choices});
+  $Res call(
+      {String id,
+      String question,
+      bool isPrivate,
+      List<String> choices,
+      DateTime? endTime,
+      DateTime createdAt,
+      String creatorId,
+      int totalVotes,
+      bool isActive,
+      List<String>? tags});
 }
 
 /// @nodoc
@@ -55,6 +71,12 @@ class _$PoolCopyWithImpl<$Res, $Val extends Pool>
     Object? question = null,
     Object? isPrivate = null,
     Object? choices = null,
+    Object? endTime = freezed,
+    Object? createdAt = null,
+    Object? creatorId = null,
+    Object? totalVotes = null,
+    Object? isActive = null,
+    Object? tags = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -73,6 +95,30 @@ class _$PoolCopyWithImpl<$Res, $Val extends Pool>
           ? _value.choices
           : choices // ignore: cast_nullable_to_non_nullable
               as List<String>,
+      endTime: freezed == endTime
+          ? _value.endTime
+          : endTime // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      creatorId: null == creatorId
+          ? _value.creatorId
+          : creatorId // ignore: cast_nullable_to_non_nullable
+              as String,
+      totalVotes: null == totalVotes
+          ? _value.totalVotes
+          : totalVotes // ignore: cast_nullable_to_non_nullable
+              as int,
+      isActive: null == isActive
+          ? _value.isActive
+          : isActive // ignore: cast_nullable_to_non_nullable
+              as bool,
+      tags: freezed == tags
+          ? _value.tags
+          : tags // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
     ) as $Val);
   }
 }
@@ -83,7 +129,17 @@ abstract class _$$_PoolCopyWith<$Res> implements $PoolCopyWith<$Res> {
       __$$_PoolCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, String question, bool isPrivate, List<String> choices});
+  $Res call(
+      {String id,
+      String question,
+      bool isPrivate,
+      List<String> choices,
+      DateTime? endTime,
+      DateTime createdAt,
+      String creatorId,
+      int totalVotes,
+      bool isActive,
+      List<String>? tags});
 }
 
 /// @nodoc
@@ -99,6 +155,12 @@ class __$$_PoolCopyWithImpl<$Res> extends _$PoolCopyWithImpl<$Res, _$_Pool>
     Object? question = null,
     Object? isPrivate = null,
     Object? choices = null,
+    Object? endTime = freezed,
+    Object? createdAt = null,
+    Object? creatorId = null,
+    Object? totalVotes = null,
+    Object? isActive = null,
+    Object? tags = freezed,
   }) {
     return _then(_$_Pool(
       id: null == id
@@ -117,6 +179,30 @@ class __$$_PoolCopyWithImpl<$Res> extends _$PoolCopyWithImpl<$Res, _$_Pool>
           ? _value._choices
           : choices // ignore: cast_nullable_to_non_nullable
               as List<String>,
+      endTime: freezed == endTime
+          ? _value.endTime
+          : endTime // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      creatorId: null == creatorId
+          ? _value.creatorId
+          : creatorId // ignore: cast_nullable_to_non_nullable
+              as String,
+      totalVotes: null == totalVotes
+          ? _value.totalVotes
+          : totalVotes // ignore: cast_nullable_to_non_nullable
+              as int,
+      isActive: null == isActive
+          ? _value.isActive
+          : isActive // ignore: cast_nullable_to_non_nullable
+              as bool,
+      tags: freezed == tags
+          ? _value._tags
+          : tags // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
     ));
   }
 }
@@ -128,8 +214,15 @@ class _$_Pool with DiagnosticableTreeMixin implements _Pool {
       {required this.id,
       required this.question,
       required this.isPrivate,
-      required final List<String> choices})
-      : _choices = choices;
+      required final List<String> choices,
+      this.endTime,
+      required this.createdAt,
+      required this.creatorId,
+      this.totalVotes = 0,
+      this.isActive = true,
+      final List<String>? tags})
+      : _choices = choices,
+        _tags = tags;
 
   factory _$_Pool.fromJson(Map<String, dynamic> json) => _$$_PoolFromJson(json);
 
@@ -148,8 +241,30 @@ class _$_Pool with DiagnosticableTreeMixin implements _Pool {
   }
 
   @override
+  final DateTime? endTime;
+  @override
+  final DateTime createdAt;
+  @override
+  final String creatorId;
+  @override
+  @JsonKey()
+  final int totalVotes;
+  @override
+  @JsonKey()
+  final bool isActive;
+  final List<String>? _tags;
+  @override
+  List<String>? get tags {
+    final value = _tags;
+    if (value == null) return null;
+    if (_tags is EqualUnmodifiableListView) return _tags;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Pool(id: $id, question: $question, isPrivate: $isPrivate, choices: $choices)';
+    return 'Pool(id: $id, question: $question, isPrivate: $isPrivate, choices: $choices, endTime: $endTime, createdAt: $createdAt, creatorId: $creatorId, totalVotes: $totalVotes, isActive: $isActive, tags: $tags)';
   }
 
   @override
@@ -160,7 +275,13 @@ class _$_Pool with DiagnosticableTreeMixin implements _Pool {
       ..add(DiagnosticsProperty('id', id))
       ..add(DiagnosticsProperty('question', question))
       ..add(DiagnosticsProperty('isPrivate', isPrivate))
-      ..add(DiagnosticsProperty('choices', choices));
+      ..add(DiagnosticsProperty('choices', choices))
+      ..add(DiagnosticsProperty('endTime', endTime))
+      ..add(DiagnosticsProperty('createdAt', createdAt))
+      ..add(DiagnosticsProperty('creatorId', creatorId))
+      ..add(DiagnosticsProperty('totalVotes', totalVotes))
+      ..add(DiagnosticsProperty('isActive', isActive))
+      ..add(DiagnosticsProperty('tags', tags));
   }
 
   @override
@@ -173,13 +294,33 @@ class _$_Pool with DiagnosticableTreeMixin implements _Pool {
                 other.question == question) &&
             (identical(other.isPrivate, isPrivate) ||
                 other.isPrivate == isPrivate) &&
-            const DeepCollectionEquality().equals(other._choices, _choices));
+            const DeepCollectionEquality().equals(other._choices, _choices) &&
+            (identical(other.endTime, endTime) || other.endTime == endTime) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt) &&
+            (identical(other.creatorId, creatorId) ||
+                other.creatorId == creatorId) &&
+            (identical(other.totalVotes, totalVotes) ||
+                other.totalVotes == totalVotes) &&
+            (identical(other.isActive, isActive) ||
+                other.isActive == isActive) &&
+            const DeepCollectionEquality().equals(other._tags, _tags));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, question, isPrivate,
-      const DeepCollectionEquality().hash(_choices));
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      question,
+      isPrivate,
+      const DeepCollectionEquality().hash(_choices),
+      endTime,
+      createdAt,
+      creatorId,
+      totalVotes,
+      isActive,
+      const DeepCollectionEquality().hash(_tags));
 
   @JsonKey(ignore: true)
   @override
@@ -200,7 +341,13 @@ abstract class _Pool implements Pool {
       {required final String id,
       required final String question,
       required final bool isPrivate,
-      required final List<String> choices}) = _$_Pool;
+      required final List<String> choices,
+      final DateTime? endTime,
+      required final DateTime createdAt,
+      required final String creatorId,
+      final int totalVotes,
+      final bool isActive,
+      final List<String>? tags}) = _$_Pool;
 
   factory _Pool.fromJson(Map<String, dynamic> json) = _$_Pool.fromJson;
 
@@ -212,6 +359,18 @@ abstract class _Pool implements Pool {
   bool get isPrivate;
   @override
   List<String> get choices;
+  @override
+  DateTime? get endTime;
+  @override
+  DateTime get createdAt;
+  @override
+  String get creatorId;
+  @override
+  int get totalVotes;
+  @override
+  bool get isActive;
+  @override
+  List<String>? get tags;
   @override
   @JsonKey(ignore: true)
   _$$_PoolCopyWith<_$_Pool> get copyWith => throw _privateConstructorUsedError;
