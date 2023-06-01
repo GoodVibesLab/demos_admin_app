@@ -1,59 +1,67 @@
+import 'package:demos_app/models/poll.dart';
+import 'package:demos_app/providers/ad_provider.dart';
+import 'package:demos_app/routes/router.dart';
+import 'package:demos_app/services/supabase_service.dart';
+import 'package:demos_app/utils/constants.dart';
+import 'package:demos_app/widgets/poll_item.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
-class HomeScreen extends StatefulWidget {
+import '../widgets/poll_listview.dart';
+
+class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
-  static const _pageSize = 20;
-  final PagingController<int, String> _pagingController =
-  PagingController(firstPageKey: 0);
-  final List<String> _data = List.generate(100, (index) => 'Item ${index + 1}');
-
-  @override
-  void initState() {
-    super.initState();
-    _pagingController.addPageRequestListener((pageKey) {
-      _fetchData(pageKey);
-    });
-  }
-
-  @override
-  void dispose() {
-    _pagingController.dispose();
-    super.dispose();
-  }
-
-  Future<void> _fetchData(int pageKey) async {
-    try {
-      final items = _data.sublist(
-          pageKey * _pageSize, (pageKey + 1) * _pageSize);
-      // Simulating an asynchronous API call delay
-      await Future.delayed(Duration(seconds: 2));
-      _pagingController.appendPage(items, pageKey + 1);
-    } catch (error) {
-      _pagingController.error = error;
-    }
-  }
+class _HomeScreenState extends ConsumerState<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Home'),
-      ),
-      body: PagedListView<int, String>(
-        pagingController: _pagingController,
-        builderDelegate: PagedChildBuilderDelegate<String>(
-          itemBuilder: (context, item, index) => ListTile(
-            title: Text(item),
-          ),
+        title: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text('Demos'),
+            const SizedBox(width: 10),
+            Icon(Icons.record_voice_over),
+          ],
         ),
+        actions: [
+          IconButton(
+            onPressed: () {
+              Routes.router.navigateTo(context, 'search');
+            },
+            icon: const Icon(Icons.search),
+          ),
+          IconButton(
+            onPressed: () {
+
+            },
+            icon: const Icon(Icons.place),
+          ),],
+        centerTitle: true,
+      ),
+      floatingActionButton: FloatingActionButton.small(
+        onPressed: () {
+          Routes.router.navigateTo(context, 'create');
+        },
+        child: const Icon(Icons.add),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(100),
+        )
+      ),
+      extendBodyBehindAppBar: true,
+      body: PollListView(
+        future: (pageKey) => SupabaseService().fetchPolls(page: pageKey),
       ),
     );
   }
+
+
 }

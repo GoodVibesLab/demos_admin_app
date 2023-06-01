@@ -1,0 +1,18 @@
+{
+  "signalThisPool": "Signaler ce sondage",
+  "blockThisUser": "Bloquer cet utilisateur",
+  "offensiveLanguage": "Langage offensant",
+  "inappropriateContent": "Contenu inapproprié",
+  "spam": "Spam",
+  "other": "Autre",
+  "cancel": "Annuler",
+  "makeYourVoiceHeard": "Faites-vous entendre !",
+  "ended": "Terminé",
+  "endsIn": "termine dans {time}",
+  "@endsIn": {
+    "placeholders": {
+      "time": {
+      }
+    }
+  }
+}

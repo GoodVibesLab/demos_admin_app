@@ -21,10 +21,21 @@ User _$UserFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$User {
   String get id => throw _privateConstructorUsedError;
-  String get name => throw _privateConstructorUsedError;
+  String get username => throw _privateConstructorUsedError;
+  String? get description => throw _privateConstructorUsedError;
+  @JsonKey(name: 'photo_url')
   String? get photoUrl => throw _privateConstructorUsedError;
-  String get email => throw _privateConstructorUsedError;
-  DateTime get createdAt => throw _privateConstructorUsedError;
+  String? get email => throw _privateConstructorUsedError;
+  @JsonKey(name: 'created_at')
+  DateTime? get createdAt => throw _privateConstructorUsedError;
+  @JsonKey(name: 'followers_count')
+  int get followersCount => throw _privateConstructorUsedError;
+  @JsonKey(name: 'following_count')
+  int get followingCount => throw _privateConstructorUsedError;
+  dynamic get following => throw _privateConstructorUsedError;
+  dynamic get subscribed => throw _privateConstructorUsedError;
+  @JsonKey(name: 'pools_count')
+  dynamic get poolsCount => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -38,10 +49,16 @@ abstract class $UserCopyWith<$Res> {
   @useResult
   $Res call(
       {String id,
-      String name,
-      String? photoUrl,
-      String email,
-      DateTime createdAt});
+      String username,
+      String? description,
+      @JsonKey(name: 'photo_url') String? photoUrl,
+      String? email,
+      @JsonKey(name: 'created_at') DateTime? createdAt,
+      @JsonKey(name: 'followers_count') int followersCount,
+      @JsonKey(name: 'following_count') int followingCount,
+      dynamic following,
+      dynamic subscribed,
+      @JsonKey(name: 'pools_count') dynamic poolsCount});
 }
 
 /// @nodoc
@@ -58,32 +75,62 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
   @override
   $Res call({
     Object? id = null,
-    Object? name = null,
+    Object? username = null,
+    Object? description = freezed,
     Object? photoUrl = freezed,
-    Object? email = null,
-    Object? createdAt = null,
+    Object? email = freezed,
+    Object? createdAt = freezed,
+    Object? followersCount = null,
+    Object? followingCount = null,
+    Object? following = freezed,
+    Object? subscribed = freezed,
+    Object? poolsCount = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
+      username: null == username
+          ? _value.username
+          : username // ignore: cast_nullable_to_non_nullable
               as String,
+      description: freezed == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
       photoUrl: freezed == photoUrl
           ? _value.photoUrl
           : photoUrl // ignore: cast_nullable_to_non_nullable
               as String?,
-      email: null == email
+      email: freezed == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
-              as String,
-      createdAt: null == createdAt
+              as String?,
+      createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as DateTime?,
+      followersCount: null == followersCount
+          ? _value.followersCount
+          : followersCount // ignore: cast_nullable_to_non_nullable
+              as int,
+      followingCount: null == followingCount
+          ? _value.followingCount
+          : followingCount // ignore: cast_nullable_to_non_nullable
+              as int,
+      following: freezed == following
+          ? _value.following
+          : following // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+      subscribed: freezed == subscribed
+          ? _value.subscribed
+          : subscribed // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+      poolsCount: freezed == poolsCount
+          ? _value.poolsCount
+          : poolsCount // ignore: cast_nullable_to_non_nullable
+              as dynamic,
     ) as $Val);
   }
 }
@@ -96,10 +143,16 @@ abstract class _$$_UserCopyWith<$Res> implements $UserCopyWith<$Res> {
   @useResult
   $Res call(
       {String id,
-      String name,
-      String? photoUrl,
-      String email,
-      DateTime createdAt});
+      String username,
+      String? description,
+      @JsonKey(name: 'photo_url') String? photoUrl,
+      String? email,
+      @JsonKey(name: 'created_at') DateTime? createdAt,
+      @JsonKey(name: 'followers_count') int followersCount,
+      @JsonKey(name: 'following_count') int followingCount,
+      dynamic following,
+      dynamic subscribed,
+      @JsonKey(name: 'pools_count') dynamic poolsCount});
 }
 
 /// @nodoc
@@ -112,32 +165,53 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
   @override
   $Res call({
     Object? id = null,
-    Object? name = null,
+    Object? username = null,
+    Object? description = freezed,
     Object? photoUrl = freezed,
-    Object? email = null,
-    Object? createdAt = null,
+    Object? email = freezed,
+    Object? createdAt = freezed,
+    Object? followersCount = null,
+    Object? followingCount = null,
+    Object? following = freezed,
+    Object? subscribed = freezed,
+    Object? poolsCount = freezed,
   }) {
     return _then(_$_User(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
+      username: null == username
+          ? _value.username
+          : username // ignore: cast_nullable_to_non_nullable
               as String,
+      description: freezed == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
       photoUrl: freezed == photoUrl
           ? _value.photoUrl
           : photoUrl // ignore: cast_nullable_to_non_nullable
               as String?,
-      email: null == email
+      email: freezed == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
-              as String,
-      createdAt: null == createdAt
+              as String?,
+      createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as DateTime?,
+      followersCount: null == followersCount
+          ? _value.followersCount
+          : followersCount // ignore: cast_nullable_to_non_nullable
+              as int,
+      followingCount: null == followingCount
+          ? _value.followingCount
+          : followingCount // ignore: cast_nullable_to_non_nullable
+              as int,
+      following: freezed == following ? _value.following! : following,
+      subscribed: freezed == subscribed ? _value.subscribed! : subscribed,
+      poolsCount: freezed == poolsCount ? _value.poolsCount! : poolsCount,
     ));
   }
 }
@@ -147,27 +221,52 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
 class _$_User implements _User {
   const _$_User(
       {required this.id,
-      required this.name,
-      this.photoUrl,
-      required this.email,
-      required this.createdAt});
+      required this.username,
+      this.description,
+      @JsonKey(name: 'photo_url') this.photoUrl,
+      this.email,
+      @JsonKey(name: 'created_at') this.createdAt,
+      @JsonKey(name: 'followers_count') this.followersCount = 0,
+      @JsonKey(name: 'following_count') this.followingCount = 0,
+      this.following = false,
+      this.subscribed = false,
+      @JsonKey(name: 'pools_count') this.poolsCount = 0});
 
   factory _$_User.fromJson(Map<String, dynamic> json) => _$$_UserFromJson(json);
 
   @override
   final String id;
   @override
-  final String name;
+  final String username;
   @override
+  final String? description;
+  @override
+  @JsonKey(name: 'photo_url')
   final String? photoUrl;
   @override
-  final String email;
+  final String? email;
   @override
-  final DateTime createdAt;
+  @JsonKey(name: 'created_at')
+  final DateTime? createdAt;
+  @override
+  @JsonKey(name: 'followers_count')
+  final int followersCount;
+  @override
+  @JsonKey(name: 'following_count')
+  final int followingCount;
+  @override
+  @JsonKey()
+  final dynamic following;
+  @override
+  @JsonKey()
+  final dynamic subscribed;
+  @override
+  @JsonKey(name: 'pools_count')
+  final dynamic poolsCount;
 
   @override
   String toString() {
-    return 'User(id: $id, name: $name, photoUrl: $photoUrl, email: $email, createdAt: $createdAt)';
+    return 'User(id: $id, username: $username, description: $description, photoUrl: $photoUrl, email: $email, createdAt: $createdAt, followersCount: $followersCount, followingCount: $followingCount, following: $following, subscribed: $subscribed, poolsCount: $poolsCount)';
   }
 
   @override
@@ -176,18 +275,41 @@ class _$_User implements _User {
         (other.runtimeType == runtimeType &&
             other is _$_User &&
             (identical(other.id, id) || other.id == id) &&
-            (identical(other.name, name) || other.name == name) &&
+            (identical(other.username, username) ||
+                other.username == username) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
             (identical(other.photoUrl, photoUrl) ||
                 other.photoUrl == photoUrl) &&
             (identical(other.email, email) || other.email == email) &&
             (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt));
+                other.createdAt == createdAt) &&
+            (identical(other.followersCount, followersCount) ||
+                other.followersCount == followersCount) &&
+            (identical(other.followingCount, followingCount) ||
+                other.followingCount == followingCount) &&
+            const DeepCollectionEquality().equals(other.following, following) &&
+            const DeepCollectionEquality()
+                .equals(other.subscribed, subscribed) &&
+            const DeepCollectionEquality()
+                .equals(other.poolsCount, poolsCount));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, name, photoUrl, email, createdAt);
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      username,
+      description,
+      photoUrl,
+      email,
+      createdAt,
+      followersCount,
+      followingCount,
+      const DeepCollectionEquality().hash(following),
+      const DeepCollectionEquality().hash(subscribed),
+      const DeepCollectionEquality().hash(poolsCount));
 
   @JsonKey(ignore: true)
   @override
@@ -206,23 +328,46 @@ class _$_User implements _User {
 abstract class _User implements User {
   const factory _User(
       {required final String id,
-      required final String name,
-      final String? photoUrl,
-      required final String email,
-      required final DateTime createdAt}) = _$_User;
+      required final String username,
+      final String? description,
+      @JsonKey(name: 'photo_url') final String? photoUrl,
+      final String? email,
+      @JsonKey(name: 'created_at') final DateTime? createdAt,
+      @JsonKey(name: 'followers_count') final int followersCount,
+      @JsonKey(name: 'following_count') final int followingCount,
+      final dynamic following,
+      final dynamic subscribed,
+      @JsonKey(name: 'pools_count') final dynamic poolsCount}) = _$_User;
 
   factory _User.fromJson(Map<String, dynamic> json) = _$_User.fromJson;
 
   @override
   String get id;
   @override
-  String get name;
+  String get username;
   @override
+  String? get description;
+  @override
+  @JsonKey(name: 'photo_url')
   String? get photoUrl;
   @override
-  String get email;
+  String? get email;
   @override
-  DateTime get createdAt;
+  @JsonKey(name: 'created_at')
+  DateTime? get createdAt;
+  @override
+  @JsonKey(name: 'followers_count')
+  int get followersCount;
+  @override
+  @JsonKey(name: 'following_count')
+  int get followingCount;
+  @override
+  dynamic get following;
+  @override
+  dynamic get subscribed;
+  @override
+  @JsonKey(name: 'pools_count')
+  dynamic get poolsCount;
   @override
   @JsonKey(ignore: true)
   _$$_UserCopyWith<_$_User> get copyWith => throw _privateConstructorUsedError;
