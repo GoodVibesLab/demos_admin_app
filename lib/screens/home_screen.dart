@@ -1,13 +1,10 @@
-import 'package:demos_app/models/poll.dart';
-import 'package:demos_app/providers/ad_provider.dart';
+import 'package:demos_app/providers/user_provider.dart';
 import 'package:demos_app/routes/router.dart';
 import 'package:demos_app/services/supabase_service.dart';
-import 'package:demos_app/utils/constants.dart';
-import 'package:demos_app/widgets/poll_item.dart';
+import 'package:demos_app/widgets/cached_network_avatar.dart';
+import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 import '../widgets/poll_listview.dart';
 
@@ -21,14 +18,58 @@ class HomeScreen extends ConsumerStatefulWidget {
 class _HomeScreenState extends ConsumerState<HomeScreen> {
 
   @override
+  void initState() {
+    _getDynamicLink();
+    super.initState();
+  }
+
+  void _getDynamicLink() async {
+    final PendingDynamicLinkData? initialLink = await FirebaseDynamicLinks.instance.getInitialLink();
+
+    if (initialLink != null) {
+      final Uri deepLink = initialLink.link;
+      final pollId = deepLink.queryParameters['pollId'];
+      if(pollId != null){
+        _navigateToPoll(pollId);
+      }
+    }
+
+    FirebaseDynamicLinks.instance.onLink.listen(
+          (pendingDynamicLinkData) {
+        // Set up the `onLink` event listener next as it may be received here
+        final Uri deepLink = pendingDynamicLinkData.link;
+        // Example of using the dynamic link to push the user to a different screen
+        final pollId = deepLink.queryParameters['pollId'];
+        if(pollId != null){
+          _navigateToPoll(pollId);
+        }
+      },
+    );
+  }
+
+  _navigateToPoll(String pollId) {
+    Routes.router.navigateTo(context, '/poll/$pollId');
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       appBar: AppBar(
-        title: Row(
+        automaticallyImplyLeading: false,
+        leading: Row(
+          children: [
+            const SizedBox(width: 10),
+            CachedNetworkAvatar(
+                radius: 16,
+                imageUrl: ref.watch(authStateProvider)?.photoUrl),
+          ],
+        ),
+        title: const Row(
           mainAxisSize: MainAxisSize.min,
           children: [
             Text('Demos'),
-            const SizedBox(width: 10),
+            SizedBox(width: 10),
             Icon(Icons.record_voice_over),
           ],
         ),
@@ -51,10 +92,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         onPressed: () {
           Routes.router.navigateTo(context, 'create');
         },
-        child: const Icon(Icons.add),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(100),
-        )
+        ),
+        child: const Icon(Icons.add)
       ),
       extendBodyBehindAppBar: true,
       body: PollListView(

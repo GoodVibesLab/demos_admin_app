@@ -1,5 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: non_constant_identifier_names
+
 part of 'user.dart';
 
 // **************************************************************************
@@ -28,10 +30,4 @@ Map<String, dynamic> _$$_UserToJson(_$_User instance) => <String, dynamic>{
       'description': instance.description,
       'photo_url': instance.photoUrl,
       'email': instance.email,
-      'created_at': instance.createdAt?.toIso8601String(),
-      'followers_count': instance.followersCount,
-      'following_count': instance.followingCount,
-      'following': instance.following,
-      'subscribed': instance.subscribed,
-      'pools_count': instance.poolsCount,
     };

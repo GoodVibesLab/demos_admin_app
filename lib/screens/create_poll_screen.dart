@@ -3,10 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
-import 'package:google_mlkit_language_id/google_mlkit_language_id.dart';
 
 class CreatePollScreen extends StatefulWidget {
-  CreatePollScreen({Key? key}) : super(key: key);
+  const CreatePollScreen({Key? key}) : super(key: key);
 
   @override
   State<CreatePollScreen> createState() => _CreatePollScreenState();
@@ -62,10 +61,10 @@ class _CreatePollScreenState extends State<CreatePollScreen> {
                       question: 'Qui va gagner le premier tour des élections US ?',
                       isPrivate: false,
                       choices: ['Trump','Biden','DeSantis'],
-                      endTime: DateTime.now().add(Duration(days: 3)),
+                      endTime: DateTime.now().add(const Duration(days: 3)),
                     tags: ['USA','Elections']
                   );
-                }, child: Text('Test')),
+                }, child: const Text('Test')),
                 const Text(
                   'Choices',
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),

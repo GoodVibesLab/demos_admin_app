@@ -12,7 +12,20 @@
           "package_name": "com.goodvibeslab.demos"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "733333385291-33oikokd9rqqh1ic8iqgs97gk5aidj74.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.goodvibeslab.demos",
+            "certificate_hash": "4ea4ee274f282056b356a13b81b1d02c9f895ecd"
+          }
+        },
+        {
+          "client_id": "733333385291-r59eg6c5r2mra1ufgbe4girig6b0raet.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDGbb1xt4L2UwafYrcCCT6WRKMpkPnJWWA"
@@ -20,7 +33,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "733333385291-r59eg6c5r2mra1ufgbe4girig6b0raet.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

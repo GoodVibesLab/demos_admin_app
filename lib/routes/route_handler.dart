@@ -28,17 +28,17 @@ var authHandler = Handler(
 
 var createHandler = Handler(
     handlerFunc: (BuildContext? context, Map<String, List<String>> params) {
-      return CreatePollScreen();
+      return const CreatePollScreen();
     });
 
 var searchHandler = Handler(
     handlerFunc: (BuildContext? context, Map<String, List<String>> params) {
-      return SearchScreen();
+      return const SearchScreen();
     });
 
 var poolHandler = Handler(
     handlerFunc: (BuildContext? context, Map<String, List<String>> params) {
-      return PoolDetailsScreen(poolId: params['id']![0]);
+      return PollDetailsScreen(poolId: params['id']![0]);
     });
 
 var userHandler = Handler(

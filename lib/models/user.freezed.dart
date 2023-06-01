@@ -26,15 +26,17 @@ mixin _$User {
   @JsonKey(name: 'photo_url')
   String? get photoUrl => throw _privateConstructorUsedError;
   String? get email => throw _privateConstructorUsedError;
-  @JsonKey(name: 'created_at')
+  @JsonKey(name: 'created_at', includeToJson: false)
   DateTime? get createdAt => throw _privateConstructorUsedError;
-  @JsonKey(name: 'followers_count')
+  @JsonKey(name: 'followers_count', includeToJson: false)
   int get followersCount => throw _privateConstructorUsedError;
-  @JsonKey(name: 'following_count')
+  @JsonKey(name: 'following_count', includeToJson: false)
   int get followingCount => throw _privateConstructorUsedError;
+  @JsonKey(includeToJson: false)
   dynamic get following => throw _privateConstructorUsedError;
+  @JsonKey(includeToJson: false)
   dynamic get subscribed => throw _privateConstructorUsedError;
-  @JsonKey(name: 'pools_count')
+  @JsonKey(name: 'pools_count', includeToJson: false)
   dynamic get poolsCount => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -51,14 +53,21 @@ abstract class $UserCopyWith<$Res> {
       {String id,
       String username,
       String? description,
-      @JsonKey(name: 'photo_url') String? photoUrl,
+      @JsonKey(name: 'photo_url')
+          String? photoUrl,
       String? email,
-      @JsonKey(name: 'created_at') DateTime? createdAt,
-      @JsonKey(name: 'followers_count') int followersCount,
-      @JsonKey(name: 'following_count') int followingCount,
-      dynamic following,
-      dynamic subscribed,
-      @JsonKey(name: 'pools_count') dynamic poolsCount});
+      @JsonKey(name: 'created_at', includeToJson: false)
+          DateTime? createdAt,
+      @JsonKey(name: 'followers_count', includeToJson: false)
+          int followersCount,
+      @JsonKey(name: 'following_count', includeToJson: false)
+          int followingCount,
+      @JsonKey(includeToJson: false)
+          dynamic following,
+      @JsonKey(includeToJson: false)
+          dynamic subscribed,
+      @JsonKey(name: 'pools_count', includeToJson: false)
+          dynamic poolsCount});
 }
 
 /// @nodoc
@@ -145,14 +154,21 @@ abstract class _$$_UserCopyWith<$Res> implements $UserCopyWith<$Res> {
       {String id,
       String username,
       String? description,
-      @JsonKey(name: 'photo_url') String? photoUrl,
+      @JsonKey(name: 'photo_url')
+          String? photoUrl,
       String? email,
-      @JsonKey(name: 'created_at') DateTime? createdAt,
-      @JsonKey(name: 'followers_count') int followersCount,
-      @JsonKey(name: 'following_count') int followingCount,
-      dynamic following,
-      dynamic subscribed,
-      @JsonKey(name: 'pools_count') dynamic poolsCount});
+      @JsonKey(name: 'created_at', includeToJson: false)
+          DateTime? createdAt,
+      @JsonKey(name: 'followers_count', includeToJson: false)
+          int followersCount,
+      @JsonKey(name: 'following_count', includeToJson: false)
+          int followingCount,
+      @JsonKey(includeToJson: false)
+          dynamic following,
+      @JsonKey(includeToJson: false)
+          dynamic subscribed,
+      @JsonKey(name: 'pools_count', includeToJson: false)
+          dynamic poolsCount});
 }
 
 /// @nodoc
@@ -223,14 +239,21 @@ class _$_User implements _User {
       {required this.id,
       required this.username,
       this.description,
-      @JsonKey(name: 'photo_url') this.photoUrl,
+      @JsonKey(name: 'photo_url')
+          this.photoUrl,
       this.email,
-      @JsonKey(name: 'created_at') this.createdAt,
-      @JsonKey(name: 'followers_count') this.followersCount = 0,
-      @JsonKey(name: 'following_count') this.followingCount = 0,
-      this.following = false,
-      this.subscribed = false,
-      @JsonKey(name: 'pools_count') this.poolsCount = 0});
+      @JsonKey(name: 'created_at', includeToJson: false)
+          this.createdAt,
+      @JsonKey(name: 'followers_count', includeToJson: false)
+          this.followersCount = 0,
+      @JsonKey(name: 'following_count', includeToJson: false)
+          this.followingCount = 0,
+      @JsonKey(includeToJson: false)
+          this.following = false,
+      @JsonKey(includeToJson: false)
+          this.subscribed = false,
+      @JsonKey(name: 'pools_count', includeToJson: false)
+          this.poolsCount = 0});
 
   factory _$_User.fromJson(Map<String, dynamic> json) => _$$_UserFromJson(json);
 
@@ -246,22 +269,22 @@ class _$_User implements _User {
   @override
   final String? email;
   @override
-  @JsonKey(name: 'created_at')
+  @JsonKey(name: 'created_at', includeToJson: false)
   final DateTime? createdAt;
   @override
-  @JsonKey(name: 'followers_count')
+  @JsonKey(name: 'followers_count', includeToJson: false)
   final int followersCount;
   @override
-  @JsonKey(name: 'following_count')
+  @JsonKey(name: 'following_count', includeToJson: false)
   final int followingCount;
   @override
-  @JsonKey()
+  @JsonKey(includeToJson: false)
   final dynamic following;
   @override
-  @JsonKey()
+  @JsonKey(includeToJson: false)
   final dynamic subscribed;
   @override
-  @JsonKey(name: 'pools_count')
+  @JsonKey(name: 'pools_count', includeToJson: false)
   final dynamic poolsCount;
 
   @override
@@ -330,14 +353,21 @@ abstract class _User implements User {
       {required final String id,
       required final String username,
       final String? description,
-      @JsonKey(name: 'photo_url') final String? photoUrl,
+      @JsonKey(name: 'photo_url')
+          final String? photoUrl,
       final String? email,
-      @JsonKey(name: 'created_at') final DateTime? createdAt,
-      @JsonKey(name: 'followers_count') final int followersCount,
-      @JsonKey(name: 'following_count') final int followingCount,
-      final dynamic following,
-      final dynamic subscribed,
-      @JsonKey(name: 'pools_count') final dynamic poolsCount}) = _$_User;
+      @JsonKey(name: 'created_at', includeToJson: false)
+          final DateTime? createdAt,
+      @JsonKey(name: 'followers_count', includeToJson: false)
+          final int followersCount,
+      @JsonKey(name: 'following_count', includeToJson: false)
+          final int followingCount,
+      @JsonKey(includeToJson: false)
+          final dynamic following,
+      @JsonKey(includeToJson: false)
+          final dynamic subscribed,
+      @JsonKey(name: 'pools_count', includeToJson: false)
+          final dynamic poolsCount}) = _$_User;
 
   factory _User.fromJson(Map<String, dynamic> json) = _$_User.fromJson;
 
@@ -353,20 +383,22 @@ abstract class _User implements User {
   @override
   String? get email;
   @override
-  @JsonKey(name: 'created_at')
+  @JsonKey(name: 'created_at', includeToJson: false)
   DateTime? get createdAt;
   @override
-  @JsonKey(name: 'followers_count')
+  @JsonKey(name: 'followers_count', includeToJson: false)
   int get followersCount;
   @override
-  @JsonKey(name: 'following_count')
+  @JsonKey(name: 'following_count', includeToJson: false)
   int get followingCount;
   @override
+  @JsonKey(includeToJson: false)
   dynamic get following;
   @override
+  @JsonKey(includeToJson: false)
   dynamic get subscribed;
   @override
-  @JsonKey(name: 'pools_count')
+  @JsonKey(name: 'pools_count', includeToJson: false)
   dynamic get poolsCount;
   @override
   @JsonKey(ignore: true)

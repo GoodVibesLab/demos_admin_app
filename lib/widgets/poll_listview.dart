@@ -66,7 +66,7 @@ class _PollListViewState extends ConsumerState<PollListView> {
       physics: const BouncingScrollPhysics(),
       pagingController: _pagingController,
       builderDelegate: PagedChildBuilderDelegate<Poll>(
-        itemBuilder: (context, item, index) => PollItem(pool: item),
+        itemBuilder: (context, item, index) => PollItem(poll: item),
       ),
       separatorBuilder: (BuildContext context, int index) {
         debugPrint('index: $index show ad ${index % 5 == 0}');

@@ -3,8 +3,6 @@ import 'package:demos_app/services/supabase_service.dart';
 import 'package:demos_app/themes/themes.dart';
 import 'package:demos_app/utils/constants.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';

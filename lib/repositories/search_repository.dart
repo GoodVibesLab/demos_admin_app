@@ -1,4 +1,3 @@
-import 'package:demos_app/screens/search_screen.dart';
 import 'package:demos_app/services/supabase_service.dart';
 import 'package:flutter/cupertino.dart';
 

@@ -1,16 +1,19 @@
 import 'package:demos_app/routes/router.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class SplashScreen extends StatefulWidget {
+import '../providers/user_provider.dart';
+
+class SplashScreen extends ConsumerStatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
 
   @override
   _SplashScreenState createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen>
+class _SplashScreenState extends ConsumerState<SplashScreen>
     with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<double> _fadeInAnimation;
@@ -38,6 +41,14 @@ class _SplashScreenState extends State<SplashScreen>
     });
 
     _animationController.forward();
+
+    _getUser();
+  }
+
+  void _getUser() {
+    Future.delayed(Duration.zero,(){
+      ref.read(authStateProvider.notifier).getUser();
+    });
   }
 
   @override

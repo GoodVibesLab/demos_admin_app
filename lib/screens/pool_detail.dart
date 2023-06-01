@@ -4,16 +4,16 @@ import 'package:flutter/material.dart';
 import '../models/poll.dart';
 import '../repositories/poll_repository.dart';
 
-class PoolDetailsScreen extends StatefulWidget {
-  const PoolDetailsScreen({Key? key, required this.poolId}) : super(key: key);
+class PollDetailsScreen extends StatefulWidget {
+  const PollDetailsScreen({Key? key, required this.poolId}) : super(key: key);
 
   final String poolId;
 
   @override
-  State<PoolDetailsScreen> createState() => _PoolDetailsScreenState();
+  State<PollDetailsScreen> createState() => _PollDetailsScreenState();
 }
 
-class _PoolDetailsScreenState extends State<PoolDetailsScreen> {
+class _PollDetailsScreenState extends State<PollDetailsScreen> {
 
   late Future<Poll?> _future;
   @override
@@ -30,7 +30,7 @@ class _PoolDetailsScreenState extends State<PoolDetailsScreen> {
         future: _future,
         builder: (context, snapshot) {
           if(snapshot.hasData && snapshot.data != null) {
-            return PollItem(pool: snapshot.data!);
+            return PollItem(poll: snapshot.data!);
           } else if(snapshot.hasError) {
             return Center(
               child: Text(snapshot.error.toString()),

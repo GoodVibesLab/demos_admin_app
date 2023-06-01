@@ -1,8 +1,12 @@
 import 'package:demos_app/routes/router.dart';
-import 'package:demos_app/services/auth_service.dart';
+import 'package:demos_app/utils/constants.dart';
+import 'package:demos_app/utils/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sign_in_button/sign_in_button.dart';
+
+import '../generated/l10n.dart';
+import '../providers/user_provider.dart';
 
 class AuthScreen extends ConsumerStatefulWidget {
   const AuthScreen({Key? key}) : super(key: key);
@@ -28,28 +32,39 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
       ),
       body: Stack(
         children: [
-          Center(
-            child: SingleChildScrollView(
+          Positioned.fill(
+            child: Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+
                 children: [
-                  const Text('Bienvenue sur E4A, ou tu pourras progresser cool'),
+                  Text(S.current.authTitle, style: context.titleLarge.copyWith(
+                    fontWeight: FontWeight.bold
+                  ),),
                   const SizedBox(
                     height: 32.0,
                   ),
-                  SignInButton(Buttons.google, onPressed: ()async{
-                    setState(() {
-                      _isLoading = true;
-                    });
-                    var authResponse = await _signInWithGoogle();
-                    setState(() {
-                      _isLoading = false;
-                    });
-                    if(authResponse){
-                      Routes.router.pop(context);
-                    }
-                  }),
+                  Text(S.current.authSubtitle, style: context.bodySmall,),
+                  Expanded(child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SignInButton(Buttons.googleDark, onPressed: ()async{
+                        setState(() {
+                          _isLoading = true;
+                        });
+                        var authResponse = await _signInWithGoogle();
+                        setState(() {
+                          _isLoading = false;
+                        });
+                        _showAuthResultSnackBar(authResponse);
+                        if(authResponse){
+                          Routes.router.pop(context);
+                        }else{
+
+                        }
+                      }),
+                    ],
+                  ))
                 ],
               ),
             ),
@@ -65,11 +80,15 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
   }
 
   Future<bool> _signInWithGoogle() async {
-    final authResponse = await AuthService().signInWithGoogle();
-    if (authResponse?.user != null) {
+    await ref.read(authStateProvider.notifier).signInWithGoogle();
+    return ref.read(authStateProvider) != null;
+  }
 
-      return true;
-    }
-    return false;
+  void _showAuthResultSnackBar(bool success) {
+    snackbarKey.currentState?.showSnackBar(
+      SnackBar(
+        content: Text(success ? 'success' : 'fail'),
+      ),
+    );
   }
 }

@@ -1,0 +1,20 @@
+{
+  "signalThisPool": "Signal this pool",
+  "blockThisUser": "Block this user",
+  "offensiveLanguage": "Offensive Language",
+  "inappropriateContent": "Inappropriate Content",
+  "spam": "Spam",
+  "other": "Other",
+  "cancel": "Cancel",
+  "makeYourVoiceHeard": "Make your voice heard!",
+  "ended": "Ended",
+  "endsIn": "ends in {time}",
+  "@endsIn": {
+    "placeholders": {
+      "time": {
+      }
+    }
+  },
+  "authTitle": "Join Demos",
+  "authSubtitle": "Sign in to join the community, vote, and make your voice heard!"
+}

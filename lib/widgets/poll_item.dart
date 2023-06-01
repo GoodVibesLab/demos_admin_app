@@ -2,37 +2,46 @@ import 'dart:math';
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:demos_app/models/poll.dart';
+import 'package:demos_app/providers/user_provider.dart';
+import 'package:demos_app/services/share_service.dart';
 import 'package:demos_app/services/supabase_service.dart';
 import 'package:demos_app/utils/extensions.dart';
 import 'package:demos_app/utils/formatter.dart';
-import 'package:demos_app/widgets/cached_network_avatar.dart';
 import 'package:demos_app/widgets/user_poll_item.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
 import '../repositories/poll_repository.dart';
 import '../routes/router.dart';
 import 'poll_item_popup_menu_button.dart';
 
-class PollItem extends StatefulWidget {
-  final Poll pool;
+class PollItem extends ConsumerStatefulWidget {
+  final Poll poll;
 
   const PollItem({
     super.key,
-    required this.pool,
+    required this.poll,
   });
 
   @override
-  State<PollItem> createState() => _PollItemState();
+  ConsumerState<PollItem> createState() => _PollItemState();
 }
 
-class _PollItemState extends State<PollItem> with AutomaticKeepAliveClientMixin {
+class _PollItemState extends ConsumerState<PollItem> with AutomaticKeepAliveClientMixin {
   String? _userChoice;
 
   bool _visible = false;
 
   @override
+  void initState() {
+    VisibilityDetectorController.instance.forget(Key(widget.poll.id));
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       margin: const EdgeInsets.all(8.0),
@@ -55,9 +64,14 @@ class _PollItemState extends State<PollItem> with AutomaticKeepAliveClientMixin 
   }
 
   Widget get _question {
-    return Text(
-      widget.pool.question,
-      style: context.bodyLarge,
+    return InkWell(
+      onTap: () {
+        Routes.router.navigateTo(context, '/poll/${widget.poll.id}');
+      },
+      child: Text(
+        widget.poll.question,
+        style: context.bodyLarge,
+      ),
     );
   }
 
@@ -66,20 +80,20 @@ class _PollItemState extends State<PollItem> with AutomaticKeepAliveClientMixin 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        UserPollItem(user: widget.pool.creator),
+        UserPollItem(user: widget.poll.creator),
         Row(
           children: [
-            Icon(widget.pool.isPrivate ? Icons.lock : Icons.public,
+            Icon(widget.poll.isPrivate ? Icons.lock : Icons.public,
                 size: 14, color: Colors.grey),
             const SizedBox(width: 4),
             Text(
-                widget.pool.endTime != null
+                widget.poll.endTime != null
                     ? formatRemainingTime(
-                        widget.pool.endTime!.difference(DateTime.now()))
+                        widget.poll.endTime!.difference(DateTime.now()))
                     : '∞',
                 style: const TextStyle(fontSize: 10, color: Colors.grey)),
             PollItemPopUpMenuButton(
-              pool: widget.pool,
+              pool: widget.poll,
             ),
           ],
         ),
@@ -93,7 +107,7 @@ class _PollItemState extends State<PollItem> with AutomaticKeepAliveClientMixin 
             spacing: 4.0,
             runAlignment: WrapAlignment.start,
             alignment: WrapAlignment.start,
-            children: widget.pool.tags!.map((tag) {
+            children: widget.poll.tags!.map((tag) {
               return InkWell(
                 onTap: (){
                   Routes.router.navigateTo(context,
@@ -113,7 +127,7 @@ class _PollItemState extends State<PollItem> with AutomaticKeepAliveClientMixin 
 
   Widget get _choices {
     return VisibilityDetector(
-      key: Key(widget.pool.id),
+      key: Key(widget.poll.id),
       onVisibilityChanged: (visibilityInfo) {
         if (!_visible && visibilityInfo.visibleFraction == 1.0) {
           setState(() {
@@ -122,12 +136,12 @@ class _PollItemState extends State<PollItem> with AutomaticKeepAliveClientMixin 
         }
       },
       child: Column(
-        children: widget.pool.choices.map((choice) {
+        children: widget.poll.choices.map((choice) {
 
-          final index = widget.pool.choices.indexOf(choice);
+          final index = widget.poll.choices.indexOf(choice);
           int votes = 0;
 
-          List<int> votesCount = widget.pool.votesCounts;
+          List<int> votesCount = widget.poll.votesCounts;
           if (votesCount.asMap().containsKey(index)) {
             votes = votesCount[index];
           }
@@ -144,12 +158,21 @@ class _PollItemState extends State<PollItem> with AutomaticKeepAliveClientMixin 
 
           return InkWell(
             onTap: () {
+
+              String ? userId = ref.read(authStateProvider)?.id;
+              if(userId == widget.poll.creator.id){
+                return;
+              }
+              if(userId == null){
+                Routes.router.navigateTo(context, '/auth');
+                return;
+              }
               if (!hasVoted) {
                 setState(() {
                   _userChoice = choice;
                 });
                 SupabaseService()
-                    .addVote(pollId: widget.pool.id, choice: choice);
+                    .addVote(pollId: widget.poll.id, choice: choice);
               }
             },
             child: LayoutBuilder(
@@ -255,28 +278,33 @@ class _PollItemState extends State<PollItem> with AutomaticKeepAliveClientMixin 
           '$_totalVotes votes',
           style: const TextStyle(fontSize: 12, color: Colors.grey),
         ),
-        const Row(
-          children: [
-            Text(
-              'Share',
-              style: TextStyle(color: Colors.grey, fontSize: 14),
-            ),
-            SizedBox(width: 8),
-            Icon(Icons.share, size: 16, color: Colors.grey)
-          ],
+        InkWell(
+          onTap: (){
+            ShareService.sharePoll(widget.poll);
+          },
+          child: const Row(
+            children: [
+              Text(
+                'Share',
+                style: TextStyle(color: Colors.grey, fontSize: 14),
+              ),
+              SizedBox(width: 8),
+              Icon(Icons.share, size: 16, color: Colors.grey)
+            ],
+          ),
         )
       ],
     );
   }
 
   num get _totalVotes {
-    return widget.pool.votesCounts.isNotEmpty
-        ? widget.pool.votesCounts.reduce((a, b) => a + b) + (_userChoice != null ? 1 : 0)
+    return widget.poll.votesCounts.isNotEmpty
+        ? widget.poll.votesCounts.reduce((a, b) => a + b) + (_userChoice != null ? 1 : 0)
         : _userChoice != null ? 1 : 0;
   }
 
   bool get _hasTags {
-    return widget.pool.tags?.isNotEmpty ?? false;
+    return widget.poll.tags?.isNotEmpty ?? false;
   }
 
   @override

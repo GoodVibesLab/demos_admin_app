@@ -25,7 +25,7 @@ class PollRepository {
           tags: tags,
           lang: result);
 
-      debugPrint('Pool created: ${poolId}');
+      debugPrint('Pool created: $poolId');
 
       return poolId;
     } catch (e) {

@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:demos_app/repositories/search_repository.dart';
 import 'package:demos_app/routes/router.dart';
-import 'package:demos_app/services/supabase_service.dart';
 import 'package:demos_app/utils/extensions.dart';
 import 'package:flutter/material.dart';
 
@@ -31,15 +30,13 @@ class _SearchScreenState extends State<SearchScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Container(
-          child: Column(
-            children: [
-              const SizedBox(height: 16.0),
-              _searchField,
-              const SizedBox(height: 16.0),
-              _searchResultsList,
-            ],
-          ),
+        child: Column(
+          children: [
+            const SizedBox(height: 16.0),
+            _searchField,
+            const SizedBox(height: 16.0),
+            _searchResultsList,
+          ],
         ),
       ),
     );
@@ -99,9 +96,9 @@ class _SearchScreenState extends State<SearchScreen> {
       child: Column(
         children: [
           _resultList(_pools),
-          SizedBox(height: 16.0),
+          const SizedBox(height: 16.0),
           _resultList(_tags),
-          SizedBox(height: 16.0),
+          const SizedBox(height: 16.0),
           _resultList(_users),
         ],
       ),
@@ -137,7 +134,7 @@ class _SearchScreenState extends State<SearchScreen> {
               ),
             ],
           )
-        : SizedBox.shrink();
+        : const SizedBox.shrink();
   }
 
   Widget _resultTile(SearchResult result) {
@@ -146,7 +143,7 @@ class _SearchScreenState extends State<SearchScreen> {
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Text(
-          result.title ?? '',
+          result.title,
           style: Theme.of(context).textTheme.bodySmall,
         ),
       ),

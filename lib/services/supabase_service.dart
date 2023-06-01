@@ -3,8 +3,7 @@ import 'package:demos_app/models/report.dart';
 import 'package:demos_app/utils/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-
-import 'auth_service.dart';
+import 'package:demos_app/models/user.dart' as demos_user;
 
 class SupabaseService {
   static Future<void> initialize(
@@ -41,7 +40,7 @@ class SupabaseService {
       '_lang': lang,
     });
 
-    debugPrint('response: ${response}');
+    debugPrint('response: $response');
 
     return response;
   }
@@ -53,7 +52,7 @@ class SupabaseService {
         creator: creator_id ( id, username, photo_url )
       ''').range(page * maxPollOptions, (page * maxPollOptions) + maxPollOptions - 1);
 
-      debugPrint('response: ${response}');
+      debugPrint('response: $response');
 
       if (response != null) {
         final polls =
@@ -74,7 +73,7 @@ class SupabaseService {
         creator: creator_id ( id, username, photo_url )
       ''').eq('creator_id', creatorId).range(page * maxPollOptions, (page * maxPollOptions) + maxPollOptions - 1);
 
-      debugPrint('response: ${response}');
+      debugPrint('response: $response');
 
       return response;
   }
@@ -105,7 +104,7 @@ class SupabaseService {
         'user_id': '03780f9a-0650-430d-a46d-ea1463ed368a',
       });
 
-      debugPrint('response: ${response}');
+      debugPrint('response: $response');
     } catch (e) {
       debugPrint('error in addVote $e');
     }
@@ -120,7 +119,7 @@ class SupabaseService {
     try {
       final response = await client?.from('reports').insert(report.toJson());
 
-      debugPrint('response: ${response}');
+      debugPrint('response: $response');
 
       return true;
     } catch (e) {
@@ -136,6 +135,26 @@ class SupabaseService {
   }
 
   ///Users methods
+
+  static Future<void> signInUser({required AuthResponse authResponse}) async{
+    final supaUser = authResponse.user;
+
+    if(supaUser != null) {
+      final demosUser = demos_user.User(
+        id: supaUser.id,
+        username: supaUser.userMetadata?['name'] ?? '',
+        email: supaUser.email ?? '',
+        photoUrl: supaUser.userMetadata?['picture'] ?? '',
+      );
+      return await client?.from('users').upsert(demosUser.toJson());
+    }
+  }
+
+  static Future<dynamic> getUser({required String userId}) async {
+    debugPrint('userId: $userId');
+    return await client?.from('users').select().eq('id', userId).single();
+  }
+
   static Future<dynamic> getUserDetails({required String userId}) async {
     return await client?.rpc(getUserWithCountsRpc, params: {
       'demanding_user_id': '03780f9a-0650-430d-a46d-ea1463ed368a',

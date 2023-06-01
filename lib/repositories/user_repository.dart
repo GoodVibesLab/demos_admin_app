@@ -1,9 +1,42 @@
 import 'package:demos_app/models/user.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:supabase_flutter/supabase_flutter.dart' as supabase;
 
 import '../services/supabase_service.dart';
 
 class UserRepository{
+
+  static Future<User?> signInUser(supabase.AuthResponse? authResponse) async{
+
+    try {
+      if(authResponse?.user == null){
+        return null;
+      }
+
+      await Future.delayed(const Duration(seconds: 2));
+      await SupabaseService.signInUser(authResponse: authResponse!);
+
+      return await getUser();
+    }catch (e) {
+      debugPrint(e.toString());
+      return null;
+    }
+  }
+
+  static Future<User?> getUser() async {
+    try{
+      final supabaseUserId = supabase.Supabase.instance.client.auth.currentUser?.id;
+      debugPrint('supabaseUserId: $supabaseUserId');
+      if(supabaseUserId == null) return null;
+
+      final response = await SupabaseService.getUser(userId: supabaseUserId);
+      debugPrint('getUser response: $response');
+      return User.fromJson(response);
+    }catch(e){
+      debugPrint('error in getUser $e');
+    }
+    return null;
+  }
 
   static Future<User?> getUserDetails({required String userId}) async {
     try{

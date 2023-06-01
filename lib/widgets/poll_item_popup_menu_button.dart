@@ -78,7 +78,7 @@ class PollItemPopUpMenuButton extends StatelessWidget {
     snackbarKey.currentState?.showSnackBar(SnackBar(
       content: Text(
           reportSent ? 'Pool reported successfully' : 'Error reporting pool'),
-      duration: Duration(seconds: 2),
+      duration: const Duration(seconds: 2),
     ));
   }
 

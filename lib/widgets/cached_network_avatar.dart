@@ -9,19 +9,19 @@ class CachedNetworkAvatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return imageUrl != null && imageUrl!.isNotEmpty ? ClipRRect(
+      borderRadius: BorderRadius.circular(radius * 10),
+      child: SizedBox(
         height: radius * 2.0,
         width: radius * 2.0,
-        child: imageUrl != null && imageUrl!.isNotEmpty
-            ? ClipRRect(
-          borderRadius: BorderRadius.circular(radius.toDouble()),
-          child: CachedNetworkImage(
+        child: CachedNetworkImage(
             imageUrl: imageUrl!,
             fit: BoxFit.cover,
           ),
-        )
+      ),
+    )
             : CircleAvatar(
-            child: Icon(Icons.person, size: radius * 1.4, color: Colors.white.withOpacity(0.6),))
-    );
+            child: Icon(Icons.person, size: radius * 1.4, color: Colors.white.withOpacity(0.6),));
+
   }
 }

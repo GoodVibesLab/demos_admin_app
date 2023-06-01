@@ -1,5 +1,6 @@
 
 import 'package:demos_app/services/supabase_service.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -8,25 +9,29 @@ class AuthService {
   static const String twitterConsumerKey = 'YOUR_TWITTER_CONSUMER_KEY';
   static const String twitterConsumerSecret = 'YOUR_TWITTER_CONSUMER_SECRET';
 
-  static String? _userId;
-  static String? get userId => _userId;
-
   // Sign in with Google
-  Future<AuthResponse?> signInWithGoogle() async {
-    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+  static Future<AuthResponse?> signInWithGoogle() async {
+    try {
+      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
-    // Obtain the auth details from the request
-    final GoogleSignInAuthentication? googleAuth =
-    await googleUser?.authentication;
+      // Obtain the auth details from the request
+      final GoogleSignInAuthentication? googleAuth =
+      await googleUser?.authentication;
 
-    final credentials =
-    await SupabaseService.client?.auth.signInWithIdToken(provider: Provider.google, idToken: googleAuth?.idToken ?? '');
-    if (credentials?.user != null) {
-      //await _insertUser(credentials!.user!);
+      debugPrint('googleAuth: ${googleAuth?.accessToken}');
+
+      if(googleAuth == null) return null;
+
+      debugPrint('googleAuth.idToken: ${googleAuth.idToken}');
+
+      final credentials =
+      await SupabaseService.client?.auth.signInWithIdToken(provider: Provider.google, idToken: googleAuth.idToken ?? '');
+      // Once signed in, return the UserCredential
+      return credentials;
+    } catch (e) {
+      debugPrint('Error signing in with Google: $e');
+      return null;
     }
-
-    // Once signed in, return the UserCredential
-    return credentials;
   }
 
 /*

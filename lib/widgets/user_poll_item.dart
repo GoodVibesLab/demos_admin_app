@@ -1,5 +1,4 @@
 import 'package:demos_app/utils/extensions.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../models/user.dart';
@@ -19,7 +18,7 @@ class UserPollItem extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           CachedNetworkAvatar(
-              imageUrl: user.photoUrl, radius: 12),
+              imageUrl: user.photoUrl, radius: 16),
           const SizedBox(width: 8),
           Text(
             user.username,

@@ -1,6 +1,5 @@
 import 'package:demos_app/repositories/poll_repository.dart';
 import 'package:demos_app/routes/router.dart';
-import 'package:demos_app/utils/constants.dart';
 import 'package:demos_app/utils/extensions.dart';
 import 'package:demos_app/widgets/cached_network_avatar.dart';
 import 'package:flutter/gestures.dart';
@@ -46,15 +45,15 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
       extendBodyBehindAppBar: true,
       body: _user != null
           ? _userLayout
-          : Center(child: CircularProgressIndicator()),
+          : const Center(child: CircularProgressIndicator()),
     );
   }
 
   Widget get _userLayout {
     return Padding(
-      padding: EdgeInsets.only(top: 56.0),
+      padding: const EdgeInsets.only(top: 56.0),
       child: SingleChildScrollView(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
             children: [
@@ -89,9 +88,9 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
               color: Colors.white,
             ),
           ),
-          SizedBox(height: 8.0),
+          const SizedBox(height: 8.0),
           _formattedDescription,
-          SizedBox(height: 16.0),
+          const SizedBox(height: 16.0),
         ],
       ),
     );
@@ -104,7 +103,7 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
           child: FilledButton(
 
             style: ButtonStyle(
-              padding: MaterialStateProperty.all(EdgeInsets.all(4.0)),
+              padding: MaterialStateProperty.all(const EdgeInsets.all(4.0)),
               backgroundColor: MaterialStateProperty.all(
                 _user!.following ? context.buttonColorOff : context.buttonColor,
               ),
@@ -131,10 +130,10 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
             ),),
           ),
         ),
-        SizedBox(width: 8),
+        const SizedBox(width: 8),
         FilledButton(
           style: ButtonStyle(
-            padding: MaterialStateProperty.all(EdgeInsets.all(4.0)),
+            padding: MaterialStateProperty.all(const EdgeInsets.all(4.0)),
             backgroundColor: MaterialStateProperty.all(
               _user!.subscribed ? context.buttonColorOff : context.buttonColor,
             ),
@@ -165,7 +164,7 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
   }
 
   Widget get _userStats {
-    return Container(
+    return SizedBox(
       height: 100,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -247,8 +246,7 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
 
   Widget get _formattedDescription{
     if(_user!.description != null){
-      final linkified = linkify(_user!.description!, linkifiers: [UrlLinkifier()], options: LinkifyOptions(humanize: false, excludeLastPeriod: true));
-      print(linkified);
+      final linkified = linkify(_user!.description!, linkifiers: [const UrlLinkifier()], options: const LinkifyOptions(humanize: false, excludeLastPeriod: true));
       return RichText(
       text: TextSpan(
         children: linkified.map((element) {
@@ -276,7 +274,7 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
     )
   );
   }
-    return SizedBox.shrink();
+    return const SizedBox.shrink();
   }
 
 }
