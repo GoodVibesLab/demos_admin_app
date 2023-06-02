@@ -83,7 +83,7 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
         children: [
           Text(
             _user!.username,
-            style: context.bodySmall.copyWith(
+            style: context.bodyMedium.copyWith(
               fontWeight: FontWeight.bold,
               color: Colors.white,
             ),
@@ -253,9 +253,10 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
           if (element is LinkableElement) {
             return TextSpan(
               text: element.text,
-              style: context.labelSmall.copyWith(
+              style: context.alternateFont300.copyWith(
                 color: Theme.of(context).colorScheme.secondaryContainer,
                 decoration: TextDecoration.underline,
+                fontSize: 12.0,
               ),
               recognizer: TapGestureRecognizer()
                 ..onTap = () async {
@@ -265,8 +266,9 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
           } else {
             return TextSpan(
               text: element.text,
-              style: context.labelSmall.copyWith(
-                color: Colors.white,
+              style: context.alternateFont300.copyWith(
+                color: Colors.grey,
+                fontSize: 12.0,
               ),
             );
           }

@@ -41,7 +41,7 @@ class NativeAdProvider extends ChangeNotifier {
             mainBackgroundColor: backgroundColor,
             callToActionTextStyle: NativeTemplateTextStyle(
               textColor: Colors.white,
-              backgroundColor: Colors.blue,
+              backgroundColor: Colors.deepOrange,
               size: 16,
               style: NativeTemplateFontStyle.bold
             ),

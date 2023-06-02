@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:demos_app/gen/assets.gen.dart';
 import 'package:demos_app/models/poll.dart';
 import 'package:demos_app/providers/user_provider.dart';
 import 'package:demos_app/services/share_service.dart';
@@ -43,7 +44,7 @@ class _PollItemState extends ConsumerState<PollItem> with AutomaticKeepAliveClie
   Widget build(BuildContext context) {
     super.build(context);
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       margin: const EdgeInsets.all(8.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -57,7 +58,6 @@ class _PollItemState extends ConsumerState<PollItem> with AutomaticKeepAliveClie
           _choices,
           const SizedBox(height: 12),
           _stats,
-          const SizedBox(height: 8),
         ],
       ),
     );
@@ -274,22 +274,42 @@ class _PollItemState extends ConsumerState<PollItem> with AutomaticKeepAliveClie
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(
-          '$_totalVotes votes',
-          style: const TextStyle(fontSize: 12, color: Colors.grey),
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 4.0),
+              child: Text(
+                '$_totalVotes',
+                style: context.displaySmall.copyWith(
+                    color: Colors.grey,
+                    fontSize: 12
+                ),
+              ),
+            ),
+            const SizedBox(width: 4),
+            Assets.appIcons.foregroundIcon.image(
+              height: 15,
+              color: Colors.grey.shade500,
+            )
+          ],
         ),
         InkWell(
           onTap: (){
             ShareService.sharePoll(widget.poll);
           },
-          child: const Row(
+          child: Row(
             children: [
               Text(
                 'Share',
-                style: TextStyle(color: Colors.grey, fontSize: 14),
+                style: context.displaySmall.copyWith(
+                    color: Colors.grey,
+                  fontSize: 12
+                ),
               ),
-              SizedBox(width: 8),
-              Icon(Icons.share, size: 16, color: Colors.grey)
+              SizedBox(width: 4),
+              Icon(Icons.share, size: 14, color: Colors.grey)
             ],
           ),
         )

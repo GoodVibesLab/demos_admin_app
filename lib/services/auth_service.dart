@@ -9,6 +9,13 @@ class AuthService {
   static const String twitterConsumerKey = 'YOUR_TWITTER_CONSUMER_KEY';
   static const String twitterConsumerSecret = 'YOUR_TWITTER_CONSUMER_SECRET';
 
+  static String? _userId;
+  static String? get userId => _userId;
+
+  static void updateUserId(String? id) {
+    _userId = id;
+  }
+
   // Sign in with Google
   static Future<AuthResponse?> signInWithGoogle() async {
     try {

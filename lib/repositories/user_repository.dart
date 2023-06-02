@@ -2,6 +2,7 @@ import 'package:demos_app/models/user.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:supabase_flutter/supabase_flutter.dart' as supabase;
 
+import '../services/auth_service.dart';
 import '../services/supabase_service.dart';
 
 class UserRepository{
@@ -31,6 +32,7 @@ class UserRepository{
 
       final response = await SupabaseService.getUser(userId: supabaseUserId);
       debugPrint('getUser response: $response');
+      AuthService.updateUserId(supabaseUserId);
       return User.fromJson(response);
     }catch(e){
       debugPrint('error in getUser $e');

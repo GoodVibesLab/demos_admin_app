@@ -1,4 +1,6 @@
+import 'package:demos_app/gen/assets.gen.dart';
 import 'package:demos_app/routes/router.dart';
+import 'package:demos_app/utils/extensions.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -33,9 +35,9 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
       ),
     );
 
-    _animationController.addStatusListener((status) {
+    _animationController.addStatusListener((status) async{
       if (status == AnimationStatus.completed) {
-        _animationController.reverse();
+        await _animationController.reverse();
         Routes.router.navigateTo(context, "home", replace: true, transition: TransitionType.fadeIn);
       }
     });
@@ -46,7 +48,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
   }
 
   void _getUser() {
-    Future.delayed(Duration.zero,(){
+    Future.delayed(Duration(seconds: 2),(){
       ref.read(authStateProvider.notifier).getUser();
     });
   }
@@ -66,10 +68,20 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
           children: [
             FadeTransition(
               opacity: _fadeInAnimation,
-              child: const Icon(
-                Icons.record_voice_over,
-                size: 80,
-                color: Colors.blue,
+              child: Assets.appIcons.foregroundIcon.image(
+                width: 100,
+                height: 100,
+              ),
+            ),
+            const SizedBox(height: 20),
+            FadeTransition(
+              opacity: _fadeInAnimation,
+              child: Text(
+                "Demos",
+                style: context.alternateFont700.copyWith(
+                  fontSize: 36,
+                  color: Colors.grey,
+                )
               ),
             ),
             const SizedBox(height: 20),
@@ -77,7 +89,9 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
               opacity: _fadeInAnimation,
               child: Text(
                 "Make your voice heard!",
-                style: GoogleFonts.indieFlower(),
+                style: GoogleFonts.indieFlower(
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
           ],

@@ -1,5 +1,6 @@
 import 'package:demos_app/models/poll.dart';
 import 'package:demos_app/models/report.dart';
+import 'package:demos_app/services/auth_service.dart';
 import 'package:demos_app/utils/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -35,7 +36,7 @@ class SupabaseService {
       '_is_private': isPrivate,
       '_choices': choices,
       '_end_time': endTime?.toIso8601String(),
-      '_creator_id': '03780f9a-0650-430d-a46d-ea1463ed368a',
+      '_creator_id': AuthService.userId,
       '_tags': tags,
       '_lang': lang,
     });
@@ -101,7 +102,7 @@ class SupabaseService {
       final response = await client?.from('votes').insert({
         'poll_id': pollId,
         'choice': choice,
-        'user_id': '03780f9a-0650-430d-a46d-ea1463ed368a',
+        'user_id': AuthService.userId,
       });
 
       debugPrint('response: $response');
@@ -157,7 +158,7 @@ class SupabaseService {
 
   static Future<dynamic> getUserDetails({required String userId}) async {
     return await client?.rpc(getUserWithCountsRpc, params: {
-      'demanding_user_id': '03780f9a-0650-430d-a46d-ea1463ed368a',
+      'demanding_user_id': AuthService.userId,
       'user_id': userId,
     });
   }
@@ -165,7 +166,7 @@ class SupabaseService {
   static Future<dynamic> followUser({required String userId}) async {
     return await client?.from('followers').insert({
       'following_id': userId,
-      'follower_id': '03780f9a-0650-430d-a46d-ea1463ed368a',
+      'follower_id': AuthService.userId,
     });
   }
 
@@ -174,12 +175,12 @@ class SupabaseService {
         ?.from('followers')
         .delete()
         .eq('following_id', userId)
-        .eq('follower_id', '03780f9a-0650-430d-a46d-ea1463ed368a');
+        .eq('follower_id', AuthService.userId);
   }
 
   static Future<dynamic> subscribeToUserNotifications({required String userId}) async {
     return await client?.from(notificationsSubscriptionsTable).insert({
-      'subscriber_id': '03780f9a-0650-430d-a46d-ea1463ed368a',
+      'subscriber_id': AuthService.userId,
       'subscribing_id': userId,
     });
   }
@@ -188,7 +189,7 @@ class SupabaseService {
     return await client
         ?.from(notificationsSubscriptionsTable)
         .delete()
-        .eq('subscriber_id', '03780f9a-0650-430d-a46d-ea1463ed368a')
+        .eq('subscriber_id', AuthService.userId)
         .eq('subscribing_id', userId);
   }
 }

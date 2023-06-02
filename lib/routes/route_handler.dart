@@ -1,8 +1,8 @@
 import 'package:demos_app/screens/auth_screen.dart';
 import 'package:demos_app/screens/create_poll_screen.dart';
-import 'package:demos_app/screens/generic_pool_screen.dart';
+import 'package:demos_app/screens/generic_poll_screen.dart';
 import 'package:demos_app/screens/home_screen.dart';
-import 'package:demos_app/screens/pool_detail.dart';
+import 'package:demos_app/screens/poll_detail.dart';
 import 'package:demos_app/screens/search_screen.dart';
 import 'package:demos_app/screens/user_details_screen.dart';
 import 'package:fluro/fluro.dart';

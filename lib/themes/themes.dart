@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 ThemeData buildTheme(brightness) {
-  var baseTheme = FlexThemeData.dark( scheme: FlexScheme.bahamaBlue);
+  var baseTheme = brightness == Brightness.dark
+      ? FlexThemeData.dark(scheme: FlexScheme.bahamaBlue)
+      : FlexThemeData.light(scheme: FlexScheme.bahamaBlue);
 
   return baseTheme.copyWith(
     textTheme: GoogleFonts.robotoTextTheme(baseTheme.textTheme),

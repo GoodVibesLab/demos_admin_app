@@ -21,6 +21,46 @@ extension StyleExtension on BuildContext {
   TextStyle get displayMedium => Theme.of(this).textTheme.displayMedium ?? const TextStyle();
   TextStyle get displayLarge => Theme.of(this).textTheme.displayLarge ?? const TextStyle();
 
+  TextStyle get alternateFont900 => const TextStyle(
+    fontFamily: 'Geologica',
+    fontWeight: FontWeight.w900,
+  );
+
+  TextStyle get alternateFont700 => const TextStyle(
+    fontFamily: 'Geologica',
+    fontWeight: FontWeight.w700,
+  );
+
+  TextStyle get alternateFont600 => const TextStyle(
+    fontFamily: 'Geologica',
+    fontWeight: FontWeight.w600,
+  );
+
+  TextStyle get alternateFont500 => const TextStyle(
+    fontFamily: 'Geologica',
+    fontWeight: FontWeight.w500,
+  );
+
+  TextStyle get alternateFont400 => const TextStyle(
+    fontFamily: 'Geologica',
+    fontWeight: FontWeight.w400,
+  );
+
+  TextStyle get alternateFont300 => const TextStyle(
+    fontFamily: 'Geologica',
+    fontWeight: FontWeight.w300,
+  );
+
+  TextStyle get alternateFont200 => const TextStyle(
+    fontFamily: 'Geologica',
+    fontWeight: FontWeight.w200,
+  );
+
+  TextStyle get alternateFont100 => const TextStyle(
+    fontFamily: 'Geologica',
+    fontWeight: FontWeight.w100,
+  );
+
   Color get buttonColor => Theme.of(this).colorScheme.secondaryContainer;
   Color get buttonColorOff => Theme.of(this).colorScheme.onSurface.withOpacity(0.08);
 }

@@ -1,3 +1,7 @@
+import 'dart:ui';
+
+import 'package:demos_app/gen/assets.gen.dart';
+import 'package:demos_app/providers/refresh_provider.dart';
 import 'package:demos_app/providers/user_provider.dart';
 import 'package:demos_app/routes/router.dart';
 import 'package:demos_app/services/supabase_service.dart';
@@ -57,6 +61,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
       appBar: AppBar(
         automaticallyImplyLeading: false,
+        backgroundColor: Theme.of(context).colorScheme.tertiaryContainer.withOpacity(0.25),
+        elevation: 0,
         leading: Row(
           children: [
             const SizedBox(width: 10),
@@ -65,13 +71,21 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 imageUrl: ref.watch(authStateProvider)?.photoUrl),
           ],
         ),
-        title: const Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text('Demos'),
-            SizedBox(width: 10),
-            Icon(Icons.record_voice_over),
-          ],
+        flexibleSpace: ClipRect(
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 7, sigmaY: 7),
+            child: Container(
+              color: Colors.transparent,
+            ),
+          ),
+        ),
+        title: InkWell(
+          onTap: () {
+            ref.read(refreshProvider.notifier).refresh();
+          },
+          child: Assets.appIcons.foregroundIcon.image(
+            height: 24,
+          ),
         ),
         actions: [
           IconButton(

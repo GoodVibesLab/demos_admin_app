@@ -1,3 +1,4 @@
+import 'package:demos_app/providers/refresh_provider.dart';
 import 'package:demos_app/widgets/poll_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -9,7 +10,6 @@ import '../providers/ad_provider.dart';
 
 class PollListView extends ConsumerStatefulWidget {
   const PollListView({Key? key, required this.future}) : super(key: key);
-
   final Future<List<Poll>> Function(int) future;
 
   @override
@@ -33,6 +33,7 @@ class _PollListViewState extends ConsumerState<PollListView> {
     Future.delayed(Duration.zero,(){
       _loadAds();
     });
+
   }
 
   Future<void> _loadAds() async {
@@ -62,22 +63,31 @@ class _PollListViewState extends ConsumerState<PollListView> {
 
   @override
   Widget build(BuildContext context) {
-    return PagedListView<int, Poll>.separated(
-      physics: const BouncingScrollPhysics(),
-      pagingController: _pagingController,
-      builderDelegate: PagedChildBuilderDelegate<Poll>(
-        itemBuilder: (context, item, index) => PollItem(poll: item),
+    ref.listen(refreshProvider, (previous, next) {
+      debugPrint('refreshProvider: $previous, $next');
+      _pagingController.refresh();
+    });
+    return RefreshIndicator(
+      onRefresh: () => Future.sync(
+            () => _pagingController.refresh(),
       ),
-      separatorBuilder: (BuildContext context, int index) {
-        debugPrint('index: $index show ad ${index % 5 == 0}');
-        return
-          index % 5 == 0 ? _nativeAdWidget : const Divider(
-            height: 1,
-            thickness: 1,
-            indent: 16,
-            endIndent: 16,
-          );
-      },
+      child: PagedListView<int, Poll>.separated(
+        physics: const BouncingScrollPhysics(),
+        pagingController: _pagingController,
+        builderDelegate: PagedChildBuilderDelegate<Poll>(
+          itemBuilder: (context, item, index) => PollItem(poll: item),
+        ),
+        separatorBuilder: (BuildContext context, int index) {
+          debugPrint('index: $index show ad ${index % 5 == 0}');
+          return
+            index % 5 == 0 ? _nativeAdWidget : const Divider(
+              height: 1,
+              thickness: 1,
+              indent: 16,
+              endIndent: 16,
+            );
+        },
+      ),
     );
   }
 
