@@ -268,6 +268,7 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
               text: element.text,
               style: context.alternateFont300.copyWith(
                 color: Colors.grey,
+
                 fontSize: 12.0,
               ),
             );
